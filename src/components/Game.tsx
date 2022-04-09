@@ -31,12 +31,16 @@ interface GameProps {
 
 export function Game({ settingsData, updateSettings }: GameProps) {
   const { t, i18n } = useTranslation();
-  const dayString = useMemo(
-    () => getDayString(settingsData.shiftDayCount),
-    [settingsData.shiftDayCount]
-  );
 
   const countryInputRef = useRef<HTMLInputElement>(null);
+
+  const [randomNumber, setRandomNumber] = useState(
+    Math.floor(Math.random() * 10000)
+  );
+  const nextRandomNumber = () =>
+    setRandomNumber(Math.floor(Math.random() * 10000));
+
+  const dayString = useMemo(() => getDayString(randomNumber), [randomNumber]);
 
   const [todays, addGuess, randomAngle, imageScale] = useTodays(dayString);
   const { country, guesses } = todays;
@@ -195,6 +199,12 @@ export function Game({ settingsData, updateSettings }: GameProps) {
       <div className="my-2">
         {gameEnded && country ? (
           <>
+            <button
+              className="rounded font-bold border-2 p-1 uppercase bg-green-600 hover:bg-green-500 active:bg-green-700 text-white w-full"
+              onClick={nextRandomNumber}
+            >
+              neeeeext please
+            </button>
             <Share
               guesses={guesses}
               dayString={dayString}

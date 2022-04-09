@@ -29,7 +29,7 @@ function App({
 }: ServiceWorkerUpdaterProps) {
   const { t, i18n } = useTranslation();
 
-  const dayString = useMemo(getDayString, []);
+  const dayString = useMemo(() => getDayString(), []);
   const [{ country }] = useTodays(dayString);
 
   const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
