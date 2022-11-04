@@ -42,7 +42,7 @@ export function Game({ settingsData, updateSettings }: GameProps) {
 
   const dayString = useMemo(() => getDayString(randomNumber), [randomNumber]);
 
-  const [todays, addGuess, randomAngle, imageScale] = useTodays(dayString);
+  const [todays, addGuess] = useTodays(dayString);
   const { country, guesses } = todays;
 
   const [currentGuess, setCurrentGuess] = useState("");
@@ -151,20 +151,6 @@ export function Game({ settingsData, updateSettings }: GameProps) {
             <Twemoji text="↪️" className="text-xl" />
           </button>
         )}
-        <img
-          className={`pointer-events-none max-h-52 m-auto transition-transform duration-700 ease-in dark:invert ${
-            hideImageMode && !gameEnded ? "h-0" : "h-full"
-          }`}
-          alt="country to guess"
-          src={`images/countries/${country?.code.toLowerCase()}/vector.svg`}
-          style={
-            rotationMode && !gameEnded
-              ? {
-                  transform: `rotate(${randomAngle}deg) scale(${imageScale})`,
-                }
-              : {}
-          }
-        />
         {settingsData.allowShiftingDay && settingsData.shiftDayCount < 7 && (
           <button
             type="button"
